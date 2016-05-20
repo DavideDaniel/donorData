@@ -10,20 +10,30 @@ class Donor(models.Model):
     create_date = models.DateTimeField(auto_now_add=True)
     update_date = models.DateTimeField(auto_now=True)
     job_title = models.CharField(max_length=255, blank=True)
-    employer_url = models.URLField(max_length=255, blank=True)
+    employer_url = models.CharField(max_length=255, blank=True)
     employer_industry = models.CharField(max_length=255, blank=True)
 
     def __str__(self):
-        return self.first_name+' '+self.last_name
+        return self.first_name + ' ' + self.last_name
+
 
 class Patronage(models.Model):
+    donor = models.ForeignKey(Donor)
     name = models.CharField(max_length=255)
 
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name_plural = 'Patrons'
+
+
 class PatronageCategory(models.Model):
+    donor = models.ForeignKey(Donor)
     category = models.CharField(max_length=255)
 
     def __str__(self):
         return self.category
+
+    class Meta:
+        verbose_name_plural = 'Patronage Categories'
