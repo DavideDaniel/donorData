@@ -1,4 +1,4 @@
-from .models import Donor, Patronage
+from .models import Donor, PatronageCategory
 from django.forms import ModelForm, modelformset_factory, inlineformset_factory
 
 
@@ -7,7 +7,7 @@ donorFields = [
     'employer_url', 'employer_industry'
 ]
 
-DonorFormSet = inlineformset_factory(Donor, Patronage, fields=['name'])
+DonorFormSet = inlineformset_factory(Donor, PatronageCategory, fields=['category'])
 
 class DonorForm(ModelForm):
     class Meta:
@@ -15,4 +15,4 @@ class DonorForm(ModelForm):
         fields = donorFields
 
 
-PatronageFormSet = modelformset_factory(Patronage, fields=['name'], extra=3)
+PatronageCategoryFormSet = modelformset_factory(PatronageCategory, fields=['category'], extra=3)
