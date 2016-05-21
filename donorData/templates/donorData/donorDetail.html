@@ -1,0 +1,16 @@
+
+
+<form method="post" action="">
+{% csrf_token %}
+Donor
+<table>
+{{donor_form}}
+</table>
+<br/>
+<br/>
+Patronage:
+<table>
+{{patronage_formset}}
+</table>
+<input type="submit" value="Submit Form"/>
+</form>
