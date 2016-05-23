@@ -5,6 +5,8 @@ from .forms import DonorForm, DonorFormSet, PatronageCategoryFormSet
 from .models import Donor, PatronageCategory
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.renderers import JSONRenderer
+from rest_framework.parsers import JSONParser
 from .serializers import DonorSerializer
 
 
@@ -14,7 +16,7 @@ class IndexView(generic.ListView):
 
 
 def new(request):
-    return HttpResponse("this")   
+    return HttpResponse("this")
     #     LineItemFormSet = inlineformset_factory(Invoice, LineItem, form=LineItemForm, extra=5)
     #     if request.method == 'POST':
     #         # invoice_form = InvoiceForm(request.POST, prefix='invoice')
@@ -45,10 +47,10 @@ def new(request):
     #             'patronage_formset': patronage_formset,
     #         })
 
-def detail(request, pk):    
+def detail(request, pk):
     return HttpResponse('detail')
     #     if request.method == 'POST':
-    #         try: 
+    #         try:
     #             donorInstance = Donor.objects.get(pk=pk)
     #         except:
     #             return Http404('Donor does not exist')
@@ -58,18 +60,24 @@ def detail(request, pk):
     #                 form.save()
     #             return HttpResponseRedirect('/')
     #     else:
-    #         try: 
+    #         try:
     #             donorInstance = Donor.objects.get(pk=pk)
     #         except:
     #             return Http404('Donor does not exist')
     #         else:
     #             form = DonorForm(instance=donorInstance)
     #             return render(request,'donorData/donorDetail.html',{'form': form})
-        
+
 
 
 class DonorAPIView(APIView):
     def get(self, request):
         donors = Donor.objects.all()
         serializer = DonorSerializer(donors, many=True)
-        return Response(serializer.data)
+        return JSONResponse(serializer.data)
+
+class JSONResponse(HttpResponse):
+    def __init__(self, data, **kwargs):
+        content = JSONRenderer().render(data)
+        kwargs['content_type'] = 'application/json'
+        super(JSONResponse, self).__init__(content, **kwargs)

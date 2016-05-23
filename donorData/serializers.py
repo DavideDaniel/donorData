@@ -6,7 +6,7 @@ from .models import Donor, PatronageCategory
 # class PatronageCategorySerializer(serializers.ModelSerializer):
 #     class Meta:
 #         model = PatronageCategory
-#         fields = ['category']    
+#         fields = ['category']
 
 
 class DonorSerializer(serializers.ModelSerializer):
@@ -15,7 +15,8 @@ class DonorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Donor
         fields = [
-            'donor_ident', 
+            'id',
+            'donor_ident',
             'first_name',
             'last_name',
             'create_date',

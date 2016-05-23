@@ -6,4 +6,5 @@ urlpatterns = [
     url(r'^detail/(?P<pk>\d+)', views.detail, name='detail'),
     url(r'^new', views.new, name='new'),
     url(r'^api/donors', views.DonorAPIView.as_view(), name='donorapi'),
+    url(r'^api/donors/index', views.JSONResponse.as_view(), name='donor_index'),
 ]
