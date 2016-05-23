@@ -5,8 +5,6 @@ from .forms import DonorForm, DonorFormSet, PatronageCategoryFormSet
 from .models import Donor, PatronageCategory
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.renderers import JSONRenderer
-from rest_framework.parsers import JSONParser
 from .serializers import DonorSerializer
 
 
@@ -70,14 +68,20 @@ def detail(request, pk):
 
 
 
-class DonorAPIView(APIView):
+class AllDonorsAPIView(APIView):
     def get(self, request):
         donors = Donor.objects.all()
         serializer = DonorSerializer(donors, many=True)
-        return JSONResponse(serializer.data)
+        return Response(serializer.data)
 
-class JSONResponse(HttpResponse):
-    def __init__(self, data, **kwargs):
-        content = JSONRenderer().render(data)
-        kwargs['content_type'] = 'application/json'
-        super(JSONResponse, self).__init__(content, **kwargs)
+class DonorByIdAPIView(APIView):
+    def get(self, request, pk):
+        donor = Donor.objects.get(pk=pk)
+        serializer = DonorSerializer(donor)
+        return Response(serializer.data)
+
+class DonorByNameAPIView(APIView):
+    def get(self, request, name):
+        donor = Donor.objects.get(name=name)
+        serializer = DonorSerializer(donor)
+        return Response(serializer.data)

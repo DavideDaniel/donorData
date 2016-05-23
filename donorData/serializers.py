@@ -17,8 +17,7 @@ class DonorSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'donor_ident',
-            'first_name',
-            'last_name',
+            'name',
             'create_date',
             'update_date',
             'job_title',
@@ -27,5 +26,3 @@ class DonorSerializer(serializers.ModelSerializer):
             'patronage',
             'categories',
         ]
-
-

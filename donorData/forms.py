@@ -3,8 +3,10 @@ from django.forms import ModelForm, modelformset_factory, inlineformset_factory
 
 
 donorFields = [
-    'first_name', 'last_name', 'job_title',
-    'employer_url', 'employer_industry'
+    'name',
+    'job_title',
+    'employer_url',
+    'employer_industry',
 ]
 
 DonorFormSet = inlineformset_factory(Donor, PatronageCategory, fields=['category'])
